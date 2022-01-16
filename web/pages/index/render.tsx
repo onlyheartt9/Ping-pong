@@ -1,22 +1,56 @@
-import React, { useContext, useEffect } from 'react'
-import { SProps, IContext } from 'ssr-types-react'
-import Slider from '@/components/slider'
-import Rectangle from '@/components/rectangle'
-import Search from '@/components/search'
-import { IData } from '~/typings/data'
-import { STORE_CONTEXT } from '_build/create-context'
+import React, { useContext, useEffect } from "react";
+import { SProps } from "ssr-types-react";
+import { XXXStore } from "@/model";
+import { UserAvatar, Vote } from "@/components";
+import { useStore } from "reto";
+import { Button } from "antd";
+import { User } from "~/typings/user";
+import styles from "./index.module.less";
 
-export default function Index (props: SProps) {
-  const { state, dispatch } = useContext<IContext<IData>>(STORE_CONTEXT)
+function VoteItem() {
+  const user: User = {
+    id: "1",
+    name: "仝壮壮",
+    nick: "仝壮壮",
+    img: "https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png",
+  };
+  return (
+    <div className={styles["vote-item"]}>
+      <div className={styles["vote-item-user"]}>
+        <UserAvatar
+          user={user}
+          showName={true}
+          src="https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png"
+        ></UserAvatar>
+        <div>5分钟前</div>
+      </div>
+      <div className={styles["vote-item-title"]}>
+        titletitletitletitletitletitletitletitletitletitletitletitletitletitletitle
+      </div>
+      <div className={styles["vote-item-content"]}>
+        contentcontentcontentcontentcontentcontentcontentcontentcontentcontentcontentcontentcontentcontentcontentcontentcontentcontentcontentcontent
+      </div>
+      <Vote></Vote>
+    </div>
+  );
+}
+
+function VoteList() {
+  const arr = [1];
   return (
     <div>
-      <Search></Search>
-      {
-        state?.indexData?.data?.[0]?.components ? <div>
-          <Slider {...props} data={state.indexData.data[0].components} />
-          <Rectangle {...props} data={state.indexData.data[1].components} />
-        </div> : <img src='https://gw.alicdn.com/tfs/TB1v.zIE7T2gK0jSZPcXXcKkpXa-128-128.gif' className='loading' />
-      }
+      {arr.map((_item) => (
+        <VoteItem key={_item}></VoteItem>
+      ))}
     </div>
-  )
+  );
+}
+
+export default function Index(props: SProps) {
+  const { list } = useStore(XXXStore);
+  return (
+    <div>
+      <VoteList></VoteList>
+    </div>
+  );
 }
