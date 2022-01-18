@@ -9,10 +9,10 @@ interface Props extends AvatarProps {
 }
 
 export const UserAvatar = (props: Props) => {
-  const { user, showName } = props;
+  const { user, showName, src } = props;
   return (
     <div className={styles["avatar"]}>
-      <Avatar {...props}></Avatar>
+      <Avatar src={user?.img??src}></Avatar>
       {user && showName ? (
         <div className={styles["avatar-name"]}>{user?.name}</div>
       ) : null}

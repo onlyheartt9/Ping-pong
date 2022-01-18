@@ -1,7 +1,7 @@
 import React, { useContext, useEffect } from "react";
 import { SProps } from "ssr-types-react";
 import { XXXStore } from "@/model";
-import { UserAvatar, Vote } from "@/components";
+import { UserAvatar, Vote, Progress } from "@/components";
 import { useStore } from "reto";
 import { Button } from "antd";
 import { User } from "~/typings/user";
@@ -31,6 +31,7 @@ function VoteItem() {
         contentcontentcontentcontentcontentcontentcontentcontentcontentcontentcontentcontentcontentcontentcontentcontentcontentcontentcontentcontent
       </div>
       <Vote></Vote>
+      <Progress width="500px"></Progress>
     </div>
   );
 }
