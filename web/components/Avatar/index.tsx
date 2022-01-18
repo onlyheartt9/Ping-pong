@@ -1,7 +1,7 @@
 import { Avatar, AvatarProps } from "antd";
 import React from "react";
 import { User } from "~/typings/user";
-import styles from "./index.module.less";
+import styles from "./style.module.less";
 
 interface Props extends AvatarProps {
   user?: User;

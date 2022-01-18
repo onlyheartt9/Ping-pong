@@ -6,7 +6,7 @@ import { Provider } from "reto";
 import { XXXStore } from "@/model";
 import { UserAvatar } from "../index";
 import { Layout } from "antd";
-import styles from "./index.module.less";
+import styles from "./style.module.less";
 const { Header, Content } = Layout;
 
 function ProviderContainer({ ofs, children }: any) {

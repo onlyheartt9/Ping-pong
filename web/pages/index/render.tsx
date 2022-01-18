@@ -5,7 +5,7 @@ import { UserAvatar, Vote } from "@/components";
 import { useStore } from "reto";
 import { Button } from "antd";
 import { User } from "~/typings/user";
-import styles from "./index.module.less";
+import styles from "./style.module.less";
 
 function VoteItem() {
   const user: User = {
