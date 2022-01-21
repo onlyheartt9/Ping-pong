@@ -1,0 +1,28 @@
+{
+  "name": "my-app",
+  "private": true,
+  "scripts": {
+    "dev": "next dev src",
+    "build": "next build src",
+    "start": "next start dist",
+    "lint": "next lint"
+  },
+  "dependencies": {
+    "antd": "^4.18.4",
+    "next": "12.0.8",
+    "react": "17.0.2",
+    "react-dom": "17.0.2",
+    "reto": "^0.9.3"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.16.10",
+    "@babel/preset-react": "^7.16.7",
+    "babel-plugin-import": "^1.13.3",
+    "eslint": "8.7.0",
+    "eslint-config-next": "12.0.8",
+    "less": "^4.1.2",
+    "less-loader": "^10.2.0",
+    "next-with-less": "^2.0.4",
+    "webpack-bundle-analyzer": "^4.5.0"
+  }
+}

@@ -1,0 +1,45 @@
+@progress-item-height: 10px;
+@progress-item-radius: 100px;
+.progress {
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+  align-items: center;
+  height: 15px;
+  .progress-item {
+    min-height: @progress-item-height;
+    line-height: @progress-item-height;
+    text-align: center;
+    color: #fff;
+    background-color: red;
+    border-radius: 0 @progress-item-radius @progress-item-radius 0;
+    position: relative;
+    z-index: 0;
+    cursor: pointer;
+    transition: all 0.1s;
+    &::after {
+      position: absolute;
+      content: "";
+      width: 6px;
+      height: 100%;
+      left: -4px;
+      top: 0;
+      display: block;
+      background-color: inherit;
+      transition: border-radius 0.5s;
+    }
+    &:first-child {
+      border-radius: @progress-item-radius;
+      &::after {
+        width: 0;
+      }
+    }
+    &:hover {
+      padding: 3px 0;
+      z-index: 100 !important;
+      &::after {
+        border-radius: @progress-item-radius 0 0 @progress-item-radius;
+      }
+    }
+  }
+}
