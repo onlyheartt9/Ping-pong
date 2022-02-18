@@ -7,13 +7,11 @@ const externals = {
   "react-dom": "window.ReactDOM",
   //'moment':"window.moment",
   //"antd/lib": "window.antd",
+  //"lodash":"window._"
 };
-export const cdns = [
-  "https://unpkg.com/react@17.0.2/umd/react.production.min.js",
-  "https://unpkg.com/react-dom@17.0.2/umd/react-dom.production.min.js",
-  "https://unpkg.com/moment@2.29.1/moment.js",
-  "https://unpkg.com/antd@4.18.3/dist/antd.min.js",
-];
+
+
+
 module.exports = withLess({
   distDir: "../dist",
   //swcMinify: true,

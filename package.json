@@ -5,7 +5,8 @@
     "dev": "next dev src",
     "build": "next build src",
     "start": "next start dist",
-    "lint": "next lint"
+    "lint": "next lint",
+    "deploy": "npm install&&npm run start"
   },
   "dependencies": {
     "antd": "^4.18.4",

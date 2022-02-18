@@ -4,7 +4,7 @@ import { UserAvatar } from "../index";
 import { Layout } from "antd";
 import styles from "./style.module.less";
 import { useEffect } from "react";
-const { Header, Content } = Layout;
+const { Header, Content, Footer } = Layout;
 
 function ProviderContainer({ ofs, children, pageProps, index = 0 }) {
   const of = ofs[index];
@@ -30,7 +30,7 @@ function HeaderContainer() {
     </div>
   );
 }
-const TLayout =  (props) => {
+const TLayout = (props) => {
   return (
     <ProviderContainer ofs={[XXXStore]} pageProps={props.pageProps}>
       <Layout className={styles["layout"]}>
@@ -38,9 +38,10 @@ const TLayout =  (props) => {
           <HeaderContainer></HeaderContainer>
         </Header>
         <Content className={styles["content"]}>{props.children}</Content>
+        <Footer className={styles["footer"]}>www.pptalk.cn</Footer>
       </Layout>
     </ProviderContainer>
   );
 };
 
-export default TLayout
+export default TLayout;

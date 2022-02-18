@@ -1,0 +1,54 @@
+.reply {
+}
+
+.reply-item {
+  margin-bottom: 16px;
+  &:last-child {
+    margin-bottom: 0;
+  }
+  .reply-item-header {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 16px;
+    .reply-item-header-left {
+      display: flex;
+      align-items: center;
+      .reply-item-time {
+        margin-left: 20px;
+        font-size: 14px;
+        font-family: Roboto-Regular, Roboto;
+        font-weight: 400;
+        color: #999999;
+      }
+    }
+    .reply-item-header-right {
+      font-size: 14px;
+      font-family: Roboto-Regular, Roboto;
+      font-weight: 400;
+      color: #697b8c;
+      margin-right: 10px;
+    }
+  }
+  .reply-item-content {
+    font-size: 14px;
+    font-family: Roboto-Regular, Roboto;
+    font-weight: 400;
+    color: #444444;
+    line-height: 20px;
+  }
+}
+
+.reply-box {
+  border-radius: 4px 4px 4px 4px;
+  border: 1px solid rgba(0, 0, 0, 0.08);
+  padding: 16px;
+  margin-top: 16px;
+  .reply-box-more {
+      cursor: pointer;
+    font-size: 14px;
+    font-family: Roboto-Regular, Roboto;
+    font-weight: 400;
+    color: #697b8c;
+    line-height: 16px;
+  }
+}
