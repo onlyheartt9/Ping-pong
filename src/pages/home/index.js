@@ -38,7 +38,7 @@ function VoteItem() {
       {/* <div className={styles["vote-item-content"]}>
         contentcontentcontentcontentcontentcontentcontentcontentcontentcontentcontentcontentcontentcontentcontentcontentcontentcontentcontentcontent
       </div> */}
-      <Vote></Vote>
+      <Vote width={'47%'}></Vote>
       <div className={styles["vote-item-footer"]}>
         <div className={styles["vote-item-replys"]}>12</div>
         <div className={styles["vote-item-stars"]}>3577</div>
@@ -81,9 +81,9 @@ function Index(props) {
 }
 
 Index.getInitialProps = async (ctx) => {
-  const res = await fetch("https://api.github.com/repos/vercel/next.js");
-  const json = await res.json();
-  return { stars: json.stargazers_count };
+  // const res = await fetch("https://api.github.com/repos/vercel/next.js");
+  // const json = await res.json();
+  return { stars: 1 };
 };
 
 export default Index;

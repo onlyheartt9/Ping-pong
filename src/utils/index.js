@@ -25,3 +25,32 @@ export const getEmoji = (str) => {
   const emojis = str.match(/\[.*?\]/g);
   return str;
 };
+
+
+export const getGradualNum = (num, setNum) => {
+  let start = new Date();
+  let startNum = 0;
+  const addNum = Math.floor(num / 20);
+  const ani = (callback, interval) => {
+    const now = new Date();
+    let key = false;
+    if (now - start >= interval) {
+      start = now;
+      key = callback();
+    }
+    if (key) {
+      return;
+    }
+    requestAnimationFrame(() => {
+      ani(callback, interval);
+    });
+  };
+
+  ani(() => {
+    startNum += addNum;
+    setNum(startNum >= num ? num : startNum);
+    if (startNum >= num) {
+      return true;
+    }
+  }, 60);
+};

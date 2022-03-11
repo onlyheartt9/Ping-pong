@@ -23,7 +23,7 @@ const ReplyBox = () => {
   return (
     <div className={styles["reply-box"]}>
       {arr.map((item) => (
-        <ReplyItem hasChild={false} imgSize={24}></ReplyItem>
+        <ReplyItem key={item} hasChild={false} imgSize={24}></ReplyItem>
       ))}
       <div className={styles["reply-box-more"]}>共11条消息,点击查看</div>
     </div>

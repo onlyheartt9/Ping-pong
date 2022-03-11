@@ -19,11 +19,19 @@
   }
 
   .progress-percent {
-    background: rgba(1, 112, 254, 0.1);
     height: 100%;
     position: absolute;
+    width: 0;
     left: 0;
+    //transition: width 2s ease-in;
+    //transition: 2s;
+    >div{
+      height: 100%;
+      background: rgba(1, 112, 254, 0.1);
+      animation:mymove 2s ease 1;
+    }
   }
+  
   .progress-right {
     display: flex;
     .progress-nums {
@@ -43,7 +51,16 @@
       font-family: Roboto-Bold, Roboto;
       font-weight: bold;
       color: #0170fe;
-      line-height: 28px
+      line-height: 26px;
     }
+  }
+}
+
+@keyframes mymove {
+  from {
+    width: 0;
+  }
+  to {
+    width: 100%;
   }
 }

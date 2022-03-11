@@ -66,8 +66,8 @@ function Home({ stars }) {
 }
 
 Home.getInitialProps = async (ctx) => {
-  const res = await fetch("https://api.github.com/repos/vercel/next.js");
-  const json = await res.json();
-  return { stars: json.stargazers_count };
+  // const res = await fetch("https://api.github.com/repos/vercel/next.js");
+  // const json = await res.json();
+  return { stars: 1 };
 };
 export default Home;

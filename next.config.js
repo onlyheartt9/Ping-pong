@@ -4,25 +4,29 @@ const BundleAnalyzerPlugin =
   require("webpack-bundle-analyzer").BundleAnalyzerPlugin;
 const externals = {
   react: "window.React",
-  "react-dom": "window.ReactDOM",
-  //'moment':"window.moment",
-  //"antd/lib": "window.antd",
-  //"lodash":"window._"
+  "react-dom": "window.ReactDOM"
 };
-
-
 
 module.exports = withLess({
   distDir: "../dist",
   //swcMinify: true,
   javascriptEnabled: true,
   reactStrictMode: true,
+  async rewrites() {
+    return {
+      fallback: [
+        {
+          source: "/:path*",
+          destination: "http://192.3.117.252/:path*",
+        },
+      ],
+    };
+  },
   webpack: (config, { buildId, dev, isServer, defaultLoaders, webpack }) => {
     //设置别名
     config.resolve.alias["@"] = path.resolve(__dirname, "src");
 
     if (!dev && !isServer) {
-      //console.log(config)
       config.externals = config.externals.concat(externals);
       config.plugins.push(
         new BundleAnalyzerPlugin({

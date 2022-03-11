@@ -1,8 +1,9 @@
 import { Provider } from "reto";
 import { XXXStore } from "@/model";
-import { UserAvatar } from "../index";
+import { UserAvatar } from "../Avatar";
 import { Layout } from "antd";
 import styles from "./style.module.less";
+import Router from "next/router";
 import { useEffect } from "react";
 const { Header, Content, Footer } = Layout;
 
@@ -21,9 +22,12 @@ function ProviderContainer({ ofs, children, pageProps, index = 0 }) {
 }
 
 function HeaderContainer() {
+  const onClick = () => {
+    Router.push("/");
+  };
   return (
     <div className={styles["header-container"]}>
-      <div>乒乓Talk</div>
+      <div className={styles["header-title"]} onClick={onClick}>乒乓Talk</div>
       <div>
         <UserAvatar src="https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png"></UserAvatar>
       </div>
