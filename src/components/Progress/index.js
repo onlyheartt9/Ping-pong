@@ -4,7 +4,7 @@ import { useState, useEffect } from "react";
 import { getGradualNum } from "@/utils";
 
 const Progress = ({ width = "initial", percent = "30%", isVote = false }) => {
-  const [num, setNum] = useState(80);
+  const [num, setNum] = useState(280);
   useEffect(() => {
     getGradualNum(num, setNum);
   }, []);

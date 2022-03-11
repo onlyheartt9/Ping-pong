@@ -26,11 +26,10 @@ export const getEmoji = (str) => {
   return str;
 };
 
-
 export const getGradualNum = (num, setNum) => {
   let start = new Date();
   let startNum = 0;
-  const addNum = Math.floor(num / 20);
+  const addNum = num / 100;
   const ani = (callback, interval) => {
     const now = new Date();
     let key = false;
@@ -48,9 +47,9 @@ export const getGradualNum = (num, setNum) => {
 
   ani(() => {
     startNum += addNum;
-    setNum(startNum >= num ? num : startNum);
+    setNum(startNum >= num ? num : Math.floor(startNum));
     if (startNum >= num) {
       return true;
     }
-  }, 60);
+  }, 10);
 };
