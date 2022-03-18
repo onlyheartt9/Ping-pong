@@ -21,5 +21,4 @@ Object.keys(components).forEach((key) => {
   }
   components[key] = React.memo(cmp);
 });
-
 module.exports = components;

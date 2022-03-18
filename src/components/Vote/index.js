@@ -1,6 +1,6 @@
 import { Progress } from "../Progress";
 import styles from "./style.module.less";
-export const Vote = ({ width = "492px",...props }) => {
+export const Vote = ({ width = "492px", option, ...props }) => {
   const arr = [1, 2, 3];
   return (
     <div className={styles["vote"]}>

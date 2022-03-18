@@ -1,7 +1,7 @@
 import React, { useContext, useEffect, useState } from "react";
 import { XXXStore } from "@/model";
 import { useStore } from "reto";
-import { UserAvatar, Vote, Progress, Panel } from "@/components";
+import { UserAvatar, Vote, Progress, Panel, WithAuth } from "@/components";
 import { Button, Divider } from "antd";
 import styles from "./style.module.less";
 import Router from "next/router";
@@ -11,7 +11,7 @@ import { timeCompute } from "@/utils";
 
 function VoteItem({ item }) {
   const onClick = () => {
-    Router.push("/detail");
+    Router.push(`/detail/${item.id}`);
   };
   return (
     <div className={styles["vote-item"]} onClick={onClick}>
@@ -94,21 +94,15 @@ function Index(props) {
       <button onClick={add1}>add</button>
       <button onClick={add2}>add</button>
       <div className={styles["vote-list-container"]}>
-        {/* <VoteList list={list}></VoteList> */}
+        <VoteList list={list}></VoteList>
       </div>
     </div>
   );
 }
 
 Index.getInitialProps = async (ctx) => {
-  console.log(ctx)
-  const { records } = await new Promise((resolve) => {
-    voteList({ p: 1, s: 10 }).then((res) => resolve(res));
-  });
-  //  console.log(records)
-
-  // const json = await res.json();
+  const { records } = await voteList({ p: 1, s: 10 });
   return { list: records };
 };
 
-export default Index;
+export default WithAuth(Index);

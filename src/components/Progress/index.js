@@ -3,7 +3,23 @@ import { Tooltip } from "antd";
 import { useState, useEffect } from "react";
 import { FlashNumber } from "../FlashNumber";
 
-const Progress = ({ width = "initial", percent = "30%", isVote = false }) => {
+const CheckMark = () => {
+  return <div></div>;
+};
+
+const Progress = ({
+  width = "initial",
+  percent = "30%",
+  isVote = false,
+  vote,
+  callback,
+}) => {
+  const [type, setType] = useState(true);
+  const onClick = () => {
+    console.log(vote);
+    setType(false);
+    callback && callback();
+  };
   return (
     <div
       className={styles["progress"]}
@@ -19,7 +35,11 @@ const Progress = ({ width = "initial", percent = "30%", isVote = false }) => {
         <div className={styles["progress-nums"]}>
           <FlashNumber>290</FlashNumber>票
         </div>
-        {isVote && <div className={styles["progress-vote-botton"]}>+1</div>}
+        {isVote && (
+          <div onClick={onClick} className={styles["progress-vote-botton"]}>
+            {type ? <p>+1</p> : <CheckMark></CheckMark>}
+          </div>
+        )}
       </div>
     </div>
   );

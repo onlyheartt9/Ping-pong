@@ -21,6 +21,16 @@ export const timeCompute = (timeStr)=> {
   return result;
 };
 
+export const parseCookie = (cookieStr)=>{
+  const cookies = cookieStr.split(";");
+  const map = {};
+  cookies.forEach(cookie=>{
+     const [key,value] = cookie.split("=");
+     map[key.trim()] = decodeURI(value)
+  })
+  return map
+}
+
 export const getEmoji = (str) => {
   const emojis = str.match(/\[.*?\]/g);
   return str;

@@ -1,5 +1,7 @@
 const path = require("path");
 const withLess = require("next-with-less");
+const {proxyUrl} = require("./proxy");
+
 const BundleAnalyzerPlugin =
   require("webpack-bundle-analyzer").BundleAnalyzerPlugin;
 const externals = {
@@ -17,7 +19,7 @@ module.exports = withLess({
       fallback: [
         {
           source: "/:path*",
-          destination: "http://192.3.117.252/:path*",
+          destination: `${proxyUrl}/:path*`,
         },
       ],
     };

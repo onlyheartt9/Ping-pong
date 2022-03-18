@@ -1,37 +1,34 @@
-import Head from "next/head";
-import Image from "next/image";
 import styles from "./style.module.less";
-import { Button } from "antd";
-import { XXXStore } from "@/model";
-import { useStore } from "reto";
-import { useEffect } from "react";
-import { Vote, Replys, UserAvatar,Comment } from "@/components";
+import { Vote, Replys, UserAvatar, Comment, WithAuth } from "@/components";
 import { Card, Divider } from "antd";
+import { voteGet } from "@/server/vote";
+import { timeCompute } from "@/utils";
 
 function ReplysModule() {
-  const submit = (value)=>{
-    console.log(value,666)
-  }
+  const submit = (value) => {
+    console.log(value, 666);
+  };
   return (
     <div>
-      
       <Comment submit={submit}></Comment>
       <Replys></Replys>
     </div>
   );
 }
 
-function DetailInfo() {
+function DetailInfo({ vote }) {
   return (
     <div className={styles["detail-info"]}>
-      <div className={styles["detail-info-title"]}>Title</div>
+      <div className={styles["detail-info-title"]}>{vote.title}</div>
       <div className={styles["detail-info-describe"]}>
-        <div className={styles["detail-info-time"]}>2分钟前</div>
+        <div className={styles["detail-info-time"]}>
+          {timeCompute(vote.createTime)}
+        </div>
         <div>标签 话题</div>
       </div>
-      <div className={styles["detail-info-content"]}>content</div>
+      <div className={styles["detail-info-content"]}>{vote.content}</div>
       <div>
-        <Vote isVote={true}></Vote>
+        <Vote vote={vote} option={{}} isVote={true}></Vote>
       </div>
       <div className={styles["detail-info-stars"]}>stars</div>
       <ReplysModule></ReplysModule>
@@ -85,15 +82,11 @@ function DetailCards() {
     </div>
   );
 }
-function VoteDetail({ stars }) {
-  const { list, setList } = useStore(XXXStore);
-  useEffect(() => {
-    console.log(list);
-  }, [list]);
+function VoteDetail({ vote }) {
   return (
     <div className={styles["vote-detail"]}>
       <div className={styles["vote-detail-left"]}>
-        <DetailInfo></DetailInfo>
+        <DetailInfo vote={vote}></DetailInfo>
       </div>
       <div className={styles["vote-detail-right"]}>
         <DetailCards></DetailCards>
@@ -103,8 +96,7 @@ function VoteDetail({ stars }) {
 }
 
 VoteDetail.getInitialProps = async (ctx) => {
-  // const res = await fetch("https://api.github.com/repos/vercel/next.js");
-  // const json = await res.json();
-  return { stars: 1 };
+  const { data } = await voteGet({ id: ctx.query.voteId });
+  return { vote: data };
 };
-export default VoteDetail;
+export default WithAuth(VoteDetail);

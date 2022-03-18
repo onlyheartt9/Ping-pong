@@ -6,12 +6,12 @@ export function voteList(params) {
 
 // 获取T信息
 export function voteGet(params) {
-  return axios.get("/api/vote/get", params);
+  return axios.get("/api/vote/get", { params });
 }
 
 // 删除T信息
 export function voteDel(params) {
-  return axios.get("/api/vote/del", params);
+  return axios.get("/api/vote/del", { params });
 }
 
 // 新增和更新
