@@ -19,7 +19,7 @@ export const UserAvatar = (props) => {
   };
   return (
     <div className={styles["avatar"]}>
-      <Avatar src={user?.img ?? src} size={styleOpt.imgSize}></Avatar>
+      <Avatar src={user?.avatar ?? src} size={styleOpt.imgSize}></Avatar>
       {user && showName ? (
         <div
           className={styles["avatar-name"]}
@@ -28,7 +28,7 @@ export const UserAvatar = (props) => {
             fontSize: styleOpt.fontSize,
           }}
         >
-          {user?.name}
+          {user?.nick}
         </div>
       ) : null}
     </div>
