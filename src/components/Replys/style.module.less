@@ -1,54 +1,117 @@
-.reply {
+@fontFamily: "Microsoft YaHei", Arial, Helvetica, sans-serif;
+.reply-hover {
+  cursor: pointer;
+  padding: 0 5px;
+  border-radius: 4px;
+  &:hover {
+    color: #00a1d6;
+    background: #e5e9ef;
+  }
 }
 
 .reply-item {
   margin-bottom: 16px;
+  display: flex;
   &:last-child {
     margin-bottom: 0;
   }
-  .reply-item-header {
-    display: flex;
-    justify-content: space-between;
-    margin-bottom: 16px;
-    .reply-item-header-left {
-      display: flex;
-      align-items: center;
-      .reply-item-time {
-        margin-left: 20px;
-        font-size: 14px;
-        font-family: Roboto-Regular, Roboto;
-        font-weight: 400;
-        color: #999999;
-      }
-    }
-    .reply-item-header-right {
-      font-size: 14px;
-      font-family: Roboto-Regular, Roboto;
-      font-weight: 400;
-      color: #697b8c;
-      margin-right: 10px;
-    }
+  .reply-item-avatar {
+    margin: 0 17px;
   }
   .reply-item-content {
-    font-size: 14px;
-    font-family: Roboto-Regular, Roboto;
-    font-weight: 400;
-    color: #444444;
-    line-height: 20px;
+    padding: 3px 0 0 0;
+    .reply-item-user {
+      word-wrap: break-word;
+      display: block;
+      margin-bottom: 16px;
+      .reply-item-nick {
+        color: #6d757a;
+        font-family: @fontFamily;
+        margin-right: 16px;
+        font-weight: 700;
+      }
+    }
+    .reply-item-text {
+      font-size: 14px;
+      font-family: @fontFamily;
+      // font-weight: 400;
+      color: #222;
+      line-height: 20px;
+    }
+    .reply-item-info {
+      display: flex;
+      color: #99a2aa;
+      font-size: 12px;
+      margin-top: 6px;
+      font-family: @fontFamily;
+      > div {
+        margin-right: 20px;
+      }
+      .reply-item-time {
+      }
+      .reply-item-comment {
+        &:extend(.reply-hover all);
+      }
+    }
   }
 }
 
 .reply-box {
   border-radius: 4px 4px 4px 4px;
-  border: 1px solid rgba(0, 0, 0, 0.08);
-  padding: 16px;
+  // border: 1px solid rgba(0, 0, 0, 0.08);
+  // padding: 16px;
   margin-top: 16px;
   .reply-box-more {
-      cursor: pointer;
+    cursor: pointer;
     font-size: 14px;
     font-family: Roboto-Regular, Roboto;
     font-weight: 400;
     color: #697b8c;
     line-height: 16px;
+  }
+}
+
+.reply-box-item {
+  margin-bottom: 16px;
+  display: flex;
+  &:last-child {
+    margin-bottom: 0;
+  }
+  .reply-box-item-avatar {
+    margin-right: 10px;
+  }
+  .reply-box-item-content {
+    padding: 3px 0 0 0;
+    .reply-box-item-user {
+      display: block;
+      word-wrap: break-word;
+      margin-bottom: 16px;
+      .reply-box-item-nick {
+        color: #6d757a;
+        font-family: @fontFamily;
+        margin-right: 16px;
+        font-weight: 700;
+      }
+    }
+    .reply-box-item-text {
+      font-size: 14px;
+      font-family: @fontFamily;
+      // font-weight: 400;
+      color: #222;
+      line-height: 20px;
+    }
+    .reply-box-item-info {
+      display: flex;
+      color: #99a2aa;
+      font-size: 12px;
+      margin-top: 6px;
+      font-family: @fontFamily;
+      > div {
+        margin-right: 20px;
+      }
+      .reply-box-item-comment {
+        &:extend(.reply-hover all);
+      }
+    }
   }
 }

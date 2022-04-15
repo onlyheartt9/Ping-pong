@@ -1,22 +1,18 @@
-import { useList, useData, useResponse } from "@/utils/hooks";
-
-// list demo
-export const XXXStore = (props) => {
-  return useList({
-    api: null,
-    initialParams: {
-      pageSize: 10,
-      pageNo: 1,
-    },
-    initialData: props.stars,
-  });
+import { storeState } from "@/utils/hooks";
+import { requireComponent } from "@/utils";
+// 获取所有需要export的组件
+const callback = (cmp, key) => {
+  return (...e) => {
+    const newComponent = cmp(...e);
+    storeState[key] = newComponent;
+    return newComponent;
+  };
 };
 
-export const DDDStore = () => {
-  const { state } = useData();
-  return useResponse({
-    api: null,
-    initialParams: {},
-    initialData: state?.indexData,
-  });
-};
+const r = require.context("./", true, /.js$/);
+
+module.exports = requireComponent(r, {
+  excludes: ["./index.js"],
+  callback,
+});
+

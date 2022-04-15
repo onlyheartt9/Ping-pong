@@ -32,7 +32,7 @@ const Login = () => {
     }
     const values = form.getFieldsValue();
     userLogin(values).then((res) => {
-      console.log(res);
+      // console.log(res);
       cookieStore.set('user_token',res)
     });
   };

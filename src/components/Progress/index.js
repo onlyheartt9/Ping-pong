@@ -2,6 +2,7 @@ import styles from "./style.module.less";
 import { Tooltip } from "antd";
 import { useState, useEffect } from "react";
 import { FlashNumber } from "../FlashNumber";
+import { options } from "less";
 
 const CheckMark = () => {
   return <div></div>;
@@ -9,16 +10,15 @@ const CheckMark = () => {
 
 const Progress = ({
   width = "initial",
-  percent = "30%",
+  percent,
   isVote = false,
-  vote,
-  callback,
+  voteClick,
+  option,
 }) => {
   const [type, setType] = useState(true);
   const onClick = () => {
-    console.log(vote);
     setType(false);
-    callback && callback();
+    voteClick && voteClick(option);
   };
   return (
     <div
@@ -33,7 +33,7 @@ const Progress = ({
       <div className={styles["progress-option"]}>猜猜我是谁</div>
       <div className={styles["progress-right"]}>
         <div className={styles["progress-nums"]}>
-          <FlashNumber>290</FlashNumber>票
+          <FlashNumber>{option.totalSelected}</FlashNumber>票
         </div>
         {isVote && (
           <div onClick={onClick} className={styles["progress-vote-botton"]}>

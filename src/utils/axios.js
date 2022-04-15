@@ -37,7 +37,7 @@ service.interceptors.request.use(
       // header添加token
       config.headers["user_token"] = cookies["user_token"];
     }
-    console.log(config);
+    // console.log(config);
     return config;
   },
   (error) => {
@@ -47,6 +47,7 @@ service.interceptors.request.use(
 // respone 响应拦截器
 service.interceptors.response.use(
   (response) => {
+    console.log(response.data)
     return response.data;
   },
   (error) => {

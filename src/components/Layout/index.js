@@ -1,5 +1,5 @@
 import { Provider } from "reto";
-import { XXXStore } from "@/model";
+import * as Stores from "@/model";
 import { UserAvatar } from "../Avatar";
 import { Layout } from "antd";
 import styles from "./style.module.less";
@@ -14,7 +14,7 @@ function ProviderContainer({ ofs, children, pageProps, index = 0 }) {
   }
   return (
     <Provider of={of} memo args={[pageProps]}>
-      <ProviderContainer ofs={ofs} index={index + 1}>
+      <ProviderContainer ofs={ofs} index={index + 1} pageProps={pageProps}>
         {children}
       </ProviderContainer>
     </Provider>
@@ -27,7 +27,9 @@ function HeaderContainer() {
   };
   return (
     <div className={styles["header-container"]}>
-      <div className={styles["header-title"]} onClick={onClick}>乒乓Talk</div>
+      <div className={styles["header-title"]} onClick={onClick}>
+        乒乓Talk
+      </div>
       <div>
         <UserAvatar src="https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png"></UserAvatar>
       </div>
@@ -35,8 +37,9 @@ function HeaderContainer() {
   );
 }
 const TLayout = (props) => {
+  const stores = Object.values(Stores);
   return (
-    <ProviderContainer ofs={[XXXStore]} pageProps={props.pageProps}>
+    <ProviderContainer ofs={stores} pageProps={props.pageProps}>
       <Layout className={styles["layout"]}>
         <Header className={styles["header"]}>
           <HeaderContainer></HeaderContainer>

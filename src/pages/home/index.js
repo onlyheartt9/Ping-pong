@@ -1,7 +1,7 @@
 import React, { useContext, useEffect, useState } from "react";
-import { XXXStore } from "@/model";
+import { VoteListStore } from "@/model";
 import { useStore } from "reto";
-import { UserAvatar, Vote, Progress, Panel, WithAuth } from "@/components";
+import { UserAvatar, Vote, Panel, WithAuth } from "@/components";
 import { Button, Divider } from "antd";
 import styles from "./style.module.less";
 import Router from "next/router";
@@ -35,7 +35,7 @@ function VoteItem({ item }) {
       {/* <div className={styles["vote-item-content"]}>
         contentcontentcontentcontentcontentcontentcontentcontentcontentcontentcontentcontentcontentcontentcontentcontentcontentcontentcontentcontent
       </div> */}
-      <Vote width={"47%"}></Vote>
+      <Vote width={"47%"} options={item.options}></Vote>
       <div className={styles["vote-item-footer"]}>
         <div className={styles["vote-item-replys"]}>12</div>
         <div className={styles["vote-item-stars"]}>3577</div>
@@ -67,32 +67,12 @@ function VoteList({ list }) {
 
 function Index(props) {
   //const [data] = useState(props.stars)
-  const { list, setList } = useStore(XXXStore);
-  useEffect(() => {
-    // console.log(list);
-    setList(props.list);
-  }, []);
-  const add = () => {
-    voteUpsert({ title: "aaa", content: "bbb" }).then((res) => {
-      console.log(res);
-    });
-  };
-  const add1 = () => {
-    checkOnlion().then((res) => {
-      console.log(res);
-    });
-  };
-  const add2 = () => {
-    voteList({ p: 1, s: 10 }).then((res) => {
-      console.log(res);
-    });
-  };
+  const { list } = useStore(VoteListStore);
+
   return (
     <div className={styles["home"]}>
       <Panel></Panel>
-      <button onClick={add}>add</button>
-      <button onClick={add1}>add</button>
-      <button onClick={add2}>add</button>
+
       <div className={styles["vote-list-container"]}>
         <VoteList list={list}></VoteList>
       </div>
@@ -102,7 +82,7 @@ function Index(props) {
 
 Index.getInitialProps = async (ctx) => {
   const { records } = await voteList({ p: 1, s: 10 });
-  return { list: records };
+  return { homeList:records };
 };
 
 export default WithAuth(Index);

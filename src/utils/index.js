@@ -1,5 +1,5 @@
 import moment from "moment";
-export const timeCompute = (timeStr)=> {
+export const timeCompute = (timeStr) => {
   const minute = 1000 * 60;
   const hour = minute * 60;
   const day = hour * 24;
@@ -21,15 +21,15 @@ export const timeCompute = (timeStr)=> {
   return result;
 };
 
-export const parseCookie = (cookieStr)=>{
+export const parseCookie = (cookieStr) => {
   const cookies = cookieStr.split(";");
   const map = {};
-  cookies.forEach(cookie=>{
-     const [key,value] = cookie.split("=");
-     map[key.trim()] = decodeURI(value)
-  })
-  return map
-}
+  cookies.forEach((cookie) => {
+    const [key, value] = cookie.split("=");
+    map[key.trim()] = decodeURI(value);
+  });
+  return map;
+};
 
 export const getEmoji = (str) => {
   const emojis = str.match(/\[.*?\]/g);
@@ -62,4 +62,30 @@ export const getGradualNum = (num, setNum) => {
       return true;
     }
   }, 10);
+};
+
+export const requireComponent = (r, { excludes = [], callback = (e) => e }) => {
+  // 获取所有需要export的组件
+  // const r = require.context("./", true, /.index.js$/);
+
+  let components = {};
+  // const excludes = ["./index.js", "./Layout/index.js"];
+  r.keys().forEach((key) => {
+    if (excludes.includes(key)) {
+      return;
+    }
+    const cmp = r(key);
+    components = { ...components, ...cmp };
+  });
+
+  // 组件添加memo
+  Object.keys(components).forEach((key) => {
+    const cmp = callback(components[key], key, components);
+    if (!cmp) {
+      return;
+    }
+    components[key] = cmp;
+  });
+
+  return components;
 };

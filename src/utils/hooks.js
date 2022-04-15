@@ -1,7 +1,8 @@
 import { useState, useEffect, useContext } from "react";
 
-export function useData() {
-  return {};
+export const storeState = {};
+export function useStoreState(key) {
+  return storeState[key];
 }
 
 export function useResetState(val) {
@@ -54,19 +55,29 @@ export function useList({ api, initialParams, initialData }) {
       if (!res) {
         return;
       }
-      const { pageSize, pageNo, items } = res;
-      setHasMore(pageSize * pageNo < res.total);
+      const { size, current, records } = res.data;
+      setHasMore(size * current < res.total);
       setTotal(res.total);
-      setList(!add ? items : [...list, ...items]);
+      setList(!add ? records : [...list, ...records]);
     });
   }, [params, add, key]);
-  return { getList, list, hasMore, total, params, reset, loading, setList };
+  return {
+    getList,
+    list: list.length=== 0? initialData:list,
+    hasMore,
+    total,
+    params,
+    reset,
+    loading,
+    setList,
+  };
 }
 
 //
-export function useResponse({ api, initialParams, initialData }) {
+export function useData({ api, initialParams, initialData }) {
   // 接口参数
   const [params, setParams, resetParams] = useResetState(initialParams);
+
   // 数据
   const [data, setData, resetData] = useResetState(initialData ?? null);
 
@@ -100,5 +111,13 @@ export function useResponse({ api, initialParams, initialData }) {
       setData(res.data);
     });
   }, [params, key]);
-  return { getData, data, params, reset, loading };
+
+  return {
+    getData,
+    data: data ?? initialData,
+    params,
+    reset,
+    loading,
+    setData,
+  };
 }

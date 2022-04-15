@@ -1,22 +1,43 @@
 import styles from "./style.module.less";
 import { Vote, Replys, UserAvatar, Comment, WithAuth } from "@/components";
 import { Card, Divider } from "antd";
-import { voteGet } from "@/server/vote";
+import { voteGet, voteOption, getReplyList, replyAdd } from "@/server";
 import { timeCompute } from "@/utils";
+import { DetailDataStore, ReplyListStore, ReplyOtherStore } from "@/model";
+import { useStore } from "reto";
+import { useEffect } from "react";
 
 function ReplysModule() {
+  const { list, getList } = useStore(ReplyListStore);
+  const { data: vote } = useStore(DetailDataStore);
+  useEffect(() => {
+    console.log(list);
+  }, [list]);
   const submit = (value) => {
-    console.log(value, 666);
+    replyAdd({ content: value, bodyId: vote.id }).then((res) => {
+      if (!res) {
+        return;
+      }
+      getList({ bodyId: vote.id });
+    });
   };
+  // const list = useState()
   return (
     <div>
       <Comment submit={submit}></Comment>
-      <Replys></Replys>
+      <Replys list={list}></Replys>
     </div>
   );
 }
 
-function DetailInfo({ vote }) {
+function DetailInfo() {
+  const { data: vote, getData } = useStore(DetailDataStore);
+  const voteClick = (option) => {
+    console.log(vote, option, 9999);
+    voteOption({ voteOption: { id: option.id } }).then(() => {
+      getData({ id: vote.id });
+    });
+  };
   return (
     <div className={styles["detail-info"]}>
       <div className={styles["detail-info-title"]}>{vote.title}</div>
@@ -28,7 +49,12 @@ function DetailInfo({ vote }) {
       </div>
       <div className={styles["detail-info-content"]}>{vote.content}</div>
       <div>
-        <Vote vote={vote} option={{}} isVote={true}></Vote>
+        <Vote
+          vote={vote}
+          options={vote.options}
+          isVote={true}
+          voteClick={voteClick}
+        ></Vote>
       </div>
       <div className={styles["detail-info-stars"]}>stars</div>
       <ReplysModule></ReplysModule>
@@ -82,11 +108,19 @@ function DetailCards() {
     </div>
   );
 }
-function VoteDetail({ vote }) {
+function VoteDetail(props) {
+  const { resetOther } = useStore(ReplyOtherStore);
+
+  // 清除回复他人的状态
+  useEffect(() => {
+    return () => {
+      resetOther();
+    };
+  }, []);
   return (
     <div className={styles["vote-detail"]}>
       <div className={styles["vote-detail-left"]}>
-        <DetailInfo vote={vote}></DetailInfo>
+        <DetailInfo></DetailInfo>
       </div>
       <div className={styles["vote-detail-right"]}>
         <DetailCards></DetailCards>
@@ -96,7 +130,10 @@ function VoteDetail({ vote }) {
 }
 
 VoteDetail.getInitialProps = async (ctx) => {
-  const { data } = await voteGet({ id: ctx.query.voteId });
-  return { vote: data };
+  const { data: vote } = await voteGet({ id: ctx.query.voteId });
+  const {
+    data: { records: replyList },
+  } = await getReplyList({ bodyId: ctx.query.voteId });
+  return { vote, replyList: replyList ?? [] };
 };
 export default WithAuth(VoteDetail);

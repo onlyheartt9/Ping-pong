@@ -5,10 +5,10 @@ import { getGradualNum } from "@/utils";
 import React from "react";
 
 const FlashNumber = ({ children }) => {
-  const [number, setNumber] = useState(children - 0);
+  const [number, setNumber] = useState(0);
   useEffect(() => {
-    getGradualNum(number, setNumber);
-  }, []);
+    getGradualNum(children - 0, setNumber);
+  }, [children]);
   return <>{number}</>;
 };
 
