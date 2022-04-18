@@ -6,14 +6,19 @@ const BundleAnalyzerPlugin =
   require("webpack-bundle-analyzer").BundleAnalyzerPlugin;
 const externals = {
   react: "window.React",
+  moment: "window.moment",
+  axios: "window.axios",
+  less: "window.less",
+  antd: "window.antd",
   "react-dom": "window.ReactDOM"
 };
 
 module.exports = withLess({
   distDir: "../dist",
-  //swcMinify: true,
+  swcMinify: true,
   javascriptEnabled: true,
   reactStrictMode: true,
+  productionBrowserSourceMaps:true,
   async rewrites() {
     return {
       fallback: [
@@ -27,7 +32,7 @@ module.exports = withLess({
   webpack: (config, { buildId, dev, isServer, defaultLoaders, webpack }) => {
     //设置别名
     config.resolve.alias["@"] = path.resolve(__dirname, "src");
-
+    // config.plugins.push(new CleanWebpackPlugin())
     if (!dev && !isServer) {
       config.externals = config.externals.concat(externals);
       config.plugins.push(

@@ -4,8 +4,6 @@ import styles from "../../styles/Home.module.css";
 import api from "@/api/hello"
 import {Button} from 'antd'
 function Home({ stars }) {
-  console.log(stars, 666666);
-  console.log(7777,api)
   return (
     <div className={styles.container}>
       <main className={styles.main}>

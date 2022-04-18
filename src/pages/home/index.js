@@ -11,6 +11,8 @@ import { timeCompute } from "@/utils";
 
 function VoteItem({ item }) {
   const onClick = () => {
+    window.rrr = Router;
+    console.log(Router,6666)
     Router.push(`/detail/${item.id}`);
   };
   return (

@@ -33,7 +33,6 @@ function ReplysModule() {
 function DetailInfo() {
   const { data: vote, getData } = useStore(DetailDataStore);
   const voteClick = (option) => {
-    console.log(vote, option, 9999);
     voteOption({ voteOption: { id: option.id } }).then(() => {
       getData({ id: vote.id });
     });
@@ -116,7 +115,7 @@ function VoteDetail(props) {
     return () => {
       resetOther();
     };
-  }, []);
+  }, [resetOther]);
   return (
     <div className={styles["vote-detail"]}>
       <div className={styles["vote-detail-left"]}>

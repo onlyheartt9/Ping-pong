@@ -1,5 +1,6 @@
 import axios from "@/utils/axios";
 
+// 权限验证
 function WithAuth(Page) {
   const getInitialProps = Page.getInitialProps;
   if (getInitialProps) {

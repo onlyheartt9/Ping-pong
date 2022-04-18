@@ -21,7 +21,7 @@ export const timeCompute = (timeStr) => {
   return result;
 };
 
-export const parseCookie = (cookieStr) => {
+export const parseCookie = (cookieStr="") => {
   const cookies = cookieStr.split(";");
   const map = {};
   cookies.forEach((cookie) => {

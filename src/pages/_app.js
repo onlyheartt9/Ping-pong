@@ -2,15 +2,16 @@ import "@/../styles/globals.css";
 import Head from "next/head";
 import Script from "next/script";
 import Layout from "@/components/Layout";
-//import config from "@/../next.config";
+
 const cdns = [
-  // "https://unpkg.com/loadsh@0.0.4/lodash.js",
   "https://unpkg.com/react@17.0.2/umd/react.production.min.js",
   "https://unpkg.com/react-dom@17.0.2/umd/react-dom.production.min.js",
-  // "https://unpkg.com/moment@2.29.1/moment.js",
-  // "https://unpkg.com/antd@4.18.3/dist/antd.min.js",
+  'https://unpkg.com/moment@2.29.3/moment.js',
+  'https://unpkg.com/less@4.1.2/dist/less.js',
+  'https://unpkg.com/antd@4.19.5/dist/antd.min.js',
+  'https://unpkg.com/axios@0.26.1/dist/axios.min.js'
 ];
-const links = ["https://unpkg.com/antd@4.18.3/dist/antd.min.css"];
+const links = ["https://unpkg.com/antd@4.19.5/dist/antd.min.css"];
 
 function MyApp({ Component, pageProps }) {
   return (
@@ -22,10 +23,14 @@ function MyApp({ Component, pageProps }) {
         {links.map((link) => (
           <link key={link} rel="stylesheet" href={link}></link>
         ))}
+        {cdns.map((cdn) => (
+          // eslint-disable-next-line @next/next/no-sync-scripts
+          <script key={cdn} src={cdn}></script>
+        ))}
       </Head>
-      {cdns.map((cdn) => (
+      {/* {cdns.map((cdn) => (
         <Script key={cdn} src={cdn}></Script>
-      ))}
+      ))} */}
       <Layout pageProps={pageProps}>
         <Component {...pageProps} />
       </Layout>

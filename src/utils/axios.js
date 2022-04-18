@@ -7,11 +7,22 @@ import { parseCookie } from "./index";
 import { proxyUrl } from "@/../proxy";
 
 const isServer = typeof window === "undefined";
+// const baseURL =
+//   process.env.NODE_ENV === "development"
+//     ? isServer
+//       ? proxyUrl
+//       : "/"
+//     : isServer
+//     ? "http://127.0.0.1"
+//     : "/";
+const baseURL = isServer ? proxyUrl : "/";
+//const baseURL = isServer ? "http:localhost" : "/";
 // 创建axios实例
 const service = axios.create({
   // api的base_url
   // baseURL: process.env.VUE_APP_URL, // 本地-后端解决跨域后
-  baseURL: isServer ? proxyUrl : "/",
+  //baseURL: isServer ? proxyUrl : "/",
+  baseURL: baseURL,
   //   baseURL: process.env.NODE_ENV === "dev" ? "/api" : process.env.VUE_APP_URL, // 本地-前端解决跨域
   timeout: 15000, // 请求超时时间
 });
@@ -32,12 +43,12 @@ service.interceptors.request.use(
     // 让每个请求携带自定义token
     // console.log(global,global.Headers)
     // console.log(service.cookie);
-    const cookies = parseCookie(service.cookie ?? document.cookie);
+    const cookies = parseCookie(isServer ? service.cookie : document?.cookie);
     if (cookies["user_token"]) {
       // header添加token
       config.headers["user_token"] = cookies["user_token"];
     }
-    // console.log(config);
+    console.log({ data: config.data, url: config.url }, 111);
     return config;
   },
   (error) => {
@@ -47,11 +58,11 @@ service.interceptors.request.use(
 // respone 响应拦截器
 service.interceptors.response.use(
   (response) => {
-    console.log(response.data)
+    console.log(response.data, 111);
     return response.data;
   },
   (error) => {
-    console.log(error);
+    console.log(error, 333);
     if (error.response.status == 400) {
       message.warning("参数信息有误");
       return;
