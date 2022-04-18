@@ -74,7 +74,7 @@ function Index(props) {
   return (
     <div className={styles["home"]}>
       <Panel></Panel>
-
+      <div>tzzzzzzzzzzzz</div>
       <div className={styles["vote-list-container"]}>
         <VoteList list={list}></VoteList>
       </div>
