@@ -3,6 +3,7 @@ import styles from "./style.module.less";
 import { userLogin } from "@/server/user";
 import { SimpleForm } from "@/components";
 import { Input } from "antd";
+import Cookies from 'js-cookie'
 
 const config = [
   {
@@ -33,7 +34,7 @@ const Login = () => {
     const values = form.getFieldsValue();
     userLogin(values).then((res) => {
       // console.log(res);
-      cookieStore.set('user_token',res)
+      Cookies.set('user_token',res)
     });
   };
   return (

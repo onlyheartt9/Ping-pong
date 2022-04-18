@@ -6,12 +6,12 @@ import Layout from "@/components/Layout";
 const cdns = [
   "https://unpkg.com/react@17.0.2/umd/react.production.min.js",
   "https://unpkg.com/react-dom@17.0.2/umd/react-dom.production.min.js",
-  'https://unpkg.com/moment@2.29.3/moment.js',
+  'https://unpkg.com/moment@2.29.1/moment.js',
   'https://unpkg.com/less@4.1.2/dist/less.js',
-  'https://unpkg.com/antd@4.19.5/dist/antd.min.js',
-  'https://unpkg.com/axios@0.26.1/dist/axios.min.js'
+  'https://unpkg.com/antd@4.18.4/dist/antd.min.js',
+  'https://unpkg.com/axios@0.26.0/dist/axios.min.js'
 ];
-const links = ["https://unpkg.com/antd@4.19.5/dist/antd.min.css"];
+const links = ["https://unpkg.com/antd@4.18.4/dist/antd.min.css"];
 
 function MyApp({ Component, pageProps }) {
   return (

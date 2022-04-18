@@ -48,7 +48,6 @@ service.interceptors.request.use(
       // header添加token
       config.headers["user_token"] = cookies["user_token"];
     }
-    console.log({ data: config.data, url: config.url }, 111);
     return config;
   },
   (error) => {
@@ -58,11 +57,12 @@ service.interceptors.request.use(
 // respone 响应拦截器
 service.interceptors.response.use(
   (response) => {
-    console.log(response.data, 111);
     return response.data;
   },
   (error) => {
-    console.log(error, 333);
+    if(isServer){
+      return
+    }
     if (error.response.status == 400) {
       message.warning("参数信息有误");
       return;
