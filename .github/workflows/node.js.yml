@@ -38,6 +38,6 @@ jobs:
           mkdir -p /www/node/Ping-pong/dist
         scp: |
           './dist/*' => /www/node/Ping-pong/dist
+          './script.sh' => /www/node/Ping-pong
         last_ssh: |
-          cd /www/node/Ping-pong
-          npm run start
+          /www/node/Ping-pong/script.sh
