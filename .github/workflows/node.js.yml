@@ -37,6 +37,7 @@ jobs:
           rm -rf /www/node/Ping-pong
           mkdir -p /www/node/Ping-pong
         scp: |
-          './*' => /www/node/Ping-pong
+          './dist/*' => /www/node/Ping-pong/dist
+          './script.sh' => /www/node/Ping-pong
         last_ssh: |
           chmod u+x /www/node/Ping-pong/script.sh
