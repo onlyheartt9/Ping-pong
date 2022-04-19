@@ -34,10 +34,9 @@ jobs:
         connect_timeout: 10s
         port: 222
         first_ssh: |
-          rm -rf /www/node/Ping-pong/dist
-          mkdir -p /www/node/Ping-pong/dist
+          rm -rf /www/node/Ping-pong
+          mkdir -p /www/node/Ping-pong
         scp: |
-          './dist/*' => /www/node/Ping-pong/dist
+          './*' => /www/node/Ping-pong
         last_ssh: |
-          cd /www/node/Ping-pong
-          npm run start
+          chmod u+x /www/node/Ping-pong/script.sh
