@@ -41,4 +41,5 @@ jobs:
         scp: |
           './dist/*' => /www/node/Ping-pong/dist
         last_ssh: |
+          cd /www/node/Ping-pong
           npm run start
