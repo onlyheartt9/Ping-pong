@@ -42,5 +42,6 @@ jobs:
           './jsconfig.json' => /www/node/Ping-pong
           './next.config.js' => /www/node/Ping-pong
           './proxy.js' => /www/node/Ping-pong
+          './script.sh' => /www/node/Ping-pong
         last_ssh: |
           chmod u+x /www/node/Ping-pong/script.sh
