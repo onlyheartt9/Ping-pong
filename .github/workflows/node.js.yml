@@ -35,3 +35,10 @@ jobs:
         local: './dist/*'
         port: 222
         remote: /www/node/Ping-pong
+        first_ssh: |
+          rm -rf /www/node/Ping-pong/dist
+          mkdir -p /www/node/Ping-pong/dist
+        scp: |
+          './dist/*' => /www/node/Ping-pong/dist
+        last_ssh: |
+          npm run start
