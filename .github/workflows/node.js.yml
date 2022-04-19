@@ -12,25 +12,6 @@ jobs:
     runs-on: ubuntu-latest
     # 步骤
     steps:
-     # 命名这个任务为发布Deploy
-    - name: Deploy
-      # 因为构建之后，需要把代码上传到服务器上，所以需要连接到ssh，并且做一个拷贝操作
-      uses: cross-the-world/ssh-scp-ssh-pipelines@latest
-      env:
-        WELCOME: "ssh scp ssh pipelines"
-        LASTSSH: "Doing something after copying"
-      with:
-        host: ${{ secrets.USER_HOST }}
-        user: ${{ secrets.USER_NAME }}
-        pass: ${{ secrets.USER_PASS }}
-        connect_timeout: 10s
-        port: 222
-        first_ssh: |
-          cd /www/node/Ping-pong
-          shopt -s extglob
-          rm -rv !("node_modules")
-        scp: |
-          './*' => /www/node/Ping-pong
     # 使用别人的action
     - uses: actions/checkout@v2
     # 步骤名称
@@ -53,8 +34,13 @@ jobs:
         connect_timeout: 10s
         port: 222
         first_ssh: |
+          rm -rf /www/node/Ping-pong/dist
           mkdir -p /www/node/Ping-pong/dist
         scp: |
           './dist/*' => /www/node/Ping-pong/dist
+          './package.json' => /www/node/Ping-pong
+          './jsconfig.json' => /www/node/Ping-pong
+          './next.config.js' => /www/node/Ping-pong
+          './proxy.js' => /www/node/Ping-pong
         last_ssh: |
           chmod u+x /www/node/Ping-pong/script.sh
