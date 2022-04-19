@@ -40,4 +40,4 @@ jobs:
           './dist/*' => /www/node/Ping-pong/dist
           './script.sh' => /www/node/Ping-pong
         last_ssh: |
-          /www/node/Ping-pong/script.sh
+          chmod u+x /www/node/Ping-pong/script.sh
