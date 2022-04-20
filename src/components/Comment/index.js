@@ -27,6 +27,7 @@ export const Comment = ({ submit, ...props }) => {
           style={{ fontSize: "12px" }}
           placeholder={other?`回复 @${other.nick}  ：`:"发表一条我的评论"}
           autoSize={{ minRows: 3, maxRows: 3 }}
+          
           {...props}
         ></TextArea>
         <button onClick={onSubmit} className={styles["comment-submit"]}>

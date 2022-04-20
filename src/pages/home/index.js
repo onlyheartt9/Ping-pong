@@ -58,10 +58,10 @@ function VoteList({ list }) {
   return (
     <div>
       {list.map((item) => (
-        <>
-          <VoteItem key={item.id} item={item}></VoteItem>
+        <div key={item.id}>
+          <VoteItem item={item}></VoteItem>
           <Divider></Divider>
-        </>
+        </div>
       ))}
     </div>
   );
@@ -74,7 +74,6 @@ function Index(props) {
   return (
     <div className={styles["home"]}>
       <Panel></Panel>
-      <div>tzzzzzzzzzzzz</div>
       <div className={styles["vote-list-container"]}>
         <VoteList list={list}></VoteList>
       </div>
