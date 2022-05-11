@@ -17,7 +17,7 @@ module.exports = withLess({
   distDir: "../dist",
   swcMinify: true,
   javascriptEnabled: true,
-  reactStrictMode: true,
+  reactStrictMode: false,
   productionBrowserSourceMaps:true,
   async rewrites() {
     return {

@@ -19,6 +19,7 @@
     margin: 0 17px;
   }
   .reply-item-content {
+    flex: 1;
     padding: 3px 0 0 0;
     .reply-item-user {
       word-wrap: break-word;
@@ -62,12 +63,23 @@
   // padding: 16px;
   margin-top: 16px;
   .reply-box-more {
-    cursor: pointer;
-    font-size: 14px;
+    font-size: 12px;
     font-family: Roboto-Regular, Roboto;
     font-weight: 400;
     color: #697b8c;
     line-height: 16px;
+    > span {
+      outline: none;
+      color: #00a1d6;
+      text-decoration: none;
+      cursor: pointer;
+      padding: 2px 3px;
+      border-radius: 4px;
+      &:hover {
+        background: #e5e9ef;
+        color: #00a1d6;
+      }
+    }
   }
 }
 

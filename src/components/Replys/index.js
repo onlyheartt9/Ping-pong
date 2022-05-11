@@ -1,5 +1,5 @@
 import { Progress } from "../Progress";
-import { useState } from "react";
+import { useState,useEffect,useMemo } from "react";
 import styles from "./style.module.less";
 import { UserAvatar } from "../Avatar";
 import { Comment } from "../Comment";
@@ -23,9 +23,8 @@ const ReplyItem = ({ data, imgSize = 48 }) => {
       bodyId: vote.id,
       rootReplyId: data.rootReplyId === 0 ? data.id : data.rootReplyId,
       toReplyId: data.id,
-    }
-    if(other){
-      
+    };
+    if (other) {
     }
     replyAdd(params).then((res) => {
       if (!res) {
@@ -49,15 +48,14 @@ const ReplyItem = ({ data, imgSize = 48 }) => {
           <div className={styles["reply-item-time"]}>
             {moment(data.createTime).format("YYYY-MM-DD HH-mm")}
           </div>
-          <div
-            className={styles["reply-item-comment"]}
-            onClick={onReplyOther}
-          >
+          <div className={styles["reply-item-comment"]} onClick={onReplyOther}>
             回复
           </div>
         </div>
 
-        {data.replys && <ReplyBox replys={data.replys} rootReply={data}></ReplyBox>}
+        {data.replys && (
+          <ReplyBox replys={data.replys} rootReply={data}></ReplyBox>
+        )}
         {replyId === data.id && <Comment submit={submit}></Comment>}
       </div>
     </div>
@@ -71,7 +69,6 @@ const ReplyBoxItem = ({ data, imgSize = 48, rootReply }) => {
     setReplyId(rootReply.id);
     setOther(data.user);
   };
-
 
   return (
     <div className={styles["reply-box-item"]}>
@@ -101,10 +98,18 @@ const ReplyBoxItem = ({ data, imgSize = 48, rootReply }) => {
   );
 };
 
-const ReplyBox = ({ replys,rootReply }) => {
+const ReplyBox = ({ replys, rootReply }) => {
+  const [showMore, setShowMore] = useState(false);
+  // const [showReplys,setShowReplys] = useState();
+  const showReplys = useMemo(()=>{
+    if(!showMore){
+      return replys.slice(0,3)
+    }
+    return replys
+  },[replys,showMore])
   return (
     <div className={styles["reply-box"]}>
-      {replys.map((item) => (
+      {showReplys.map((item) => (
         <ReplyBoxItem
           key={item.id}
           data={item}
@@ -112,7 +117,19 @@ const ReplyBox = ({ replys,rootReply }) => {
           imgSize={24}
         ></ReplyBoxItem>
       ))}
-      <div className={styles["reply-box-more"]}>共11条消息,点击查看</div>
+      {!showMore && (
+        <div className={styles["reply-box-more"]}>
+          共11条消息,
+          <span
+            onClick={() => {
+              setShowMore(true);
+            }}
+          >
+            点击查看
+          </span>
+        </div>
+      )}
+      {showMore && <div>下一页</div>}
     </div>
   );
 };

@@ -63,7 +63,7 @@ export function useList({ api, initialParams, initialData }) {
   }, [params, add, key]);
   return {
     getList,
-    list: list.length=== 0? initialData:list,
+    list: list.length === 0 ? initialData : list,
     hasMore,
     total,
     params,
@@ -120,4 +120,31 @@ export function useData({ api, initialParams, initialData }) {
     loading,
     setData,
   };
+}
+
+// 点击外部事件
+export function useOutsideClick({ refs, callback }) {
+  useEffect(
+    () => {
+      if (refs.some((ref) => !ref.current)) {
+        return;
+      }
+      const onClick = (e) => {
+        let { target } = e;
+        while (target) {
+          if (refs.some((ref) => ref.current.contains(target))) {
+            return;
+          }
+          target = target.offsetParent;
+        }
+
+        callback();
+      };
+      document.addEventListener("click", onClick);
+      return () => {
+        document.removeEventListener("click", onClick);
+      };
+    },
+    refs.map((ref) => ref.current)
+  );
 }

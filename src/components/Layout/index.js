@@ -1,10 +1,11 @@
 import { Provider } from "reto";
 import * as Stores from "@/model";
 import { UserAvatar } from "../Avatar";
-import { Layout } from "antd";
+import { Button, Layout } from "antd";
 import styles from "./style.module.less";
 import Router from "next/router";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
+import Cookies from "js-cookie";
 const { Header, Content, Footer } = Layout;
 
 function ProviderContainer({ ofs, children, pageProps, index = 0 }) {
@@ -22,16 +23,32 @@ function ProviderContainer({ ofs, children, pageProps, index = 0 }) {
 }
 
 function HeaderContainer() {
-  const onClick = () => {
+  const [isLogin, setLogin] = useState(false);
+  const userToken = Cookies.get("user_token");
+  useEffect(() => {
+    setLogin(!!userToken);
+  }, [userToken]);
+  const jumpToHome = () => {
     Router.push("/");
+  };
+  const jumpToVote = () => {
+    Router.push("/new");
+  };
+  const jumpToLogin = () => {
+    Router.push("/login");
   };
   return (
     <div className={styles["header-container"]}>
-      <div className={styles["header-title"]} onClick={onClick}>
+      <div className={styles["header-title"]} onClick={jumpToHome}>
         乒乓Talk
       </div>
-      <div>
-        <UserAvatar src="https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png"></UserAvatar>
+      <div className={styles["header-func"]}>
+        <Button onClick={jumpToVote}>创建投票</Button>
+        {isLogin ? (
+          <UserAvatar src="https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png"></UserAvatar>
+        ) : (
+          <Button onClick={jumpToLogin}>登陆</Button>
+        )}
       </div>
     </div>
   );

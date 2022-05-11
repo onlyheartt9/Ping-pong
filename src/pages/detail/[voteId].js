@@ -5,7 +5,7 @@ import { voteGet, voteOption, getReplyList, replyAdd } from "@/server";
 import { timeCompute } from "@/utils";
 import { DetailDataStore, ReplyListStore, ReplyOtherStore } from "@/model";
 import { useStore } from "reto";
-import { useEffect } from "react";
+import { useEffect, useMemo } from "react";
 
 function ReplysModule() {
   const { list, getList } = useStore(ReplyListStore);
@@ -23,7 +23,8 @@ function ReplysModule() {
   };
   // const list = useState()
   return (
-    <div>
+    <div className="replys-module">
+      <div className="replys-module-title">全部评论</div>
       <Comment submit={submit}></Comment>
       <Replys list={list}></Replys>
     </div>
@@ -32,6 +33,9 @@ function ReplysModule() {
 
 function DetailInfo() {
   const { data: vote, getData } = useStore(DetailDataStore);
+  const type = useMemo(() => {
+    return vote.options.some((opt) => opt.selected);
+  }, [vote]);
   const voteClick = (option) => {
     voteOption({ voteOption: { id: option.id } }).then(() => {
       getData({ id: vote.id });
@@ -53,6 +57,7 @@ function DetailInfo() {
           options={vote.options}
           isVote={true}
           voteClick={voteClick}
+          type={type}
         ></Vote>
       </div>
       <div className={styles["detail-info-stars"]}>stars</div>
@@ -60,12 +65,15 @@ function DetailInfo() {
     </div>
   );
 }
+
 function DetailCards() {
+  const { data: vote } = useStore(DetailDataStore);
   return (
     <div className={styles["detail-cards"]}>
       <Card className={[styles["user-card"], styles["card"]]}>
         <div className={styles["user-avatar"]}>
           <UserAvatar
+            user={vote.user}
             showName
             style={{
               imgSize: 64,
@@ -107,6 +115,7 @@ function DetailCards() {
     </div>
   );
 }
+
 function VoteDetail(props) {
   const { resetOther } = useStore(ReplyOtherStore);
 
@@ -115,7 +124,7 @@ function VoteDetail(props) {
     return () => {
       resetOther();
     };
-  }, [resetOther]);
+  }, []);
   return (
     <div className={styles["vote-detail"]}>
       <div className={styles["vote-detail-left"]}>
@@ -130,6 +139,7 @@ function VoteDetail(props) {
 
 VoteDetail.getInitialProps = async (ctx) => {
   const { data: vote } = await voteGet({ id: ctx.query.voteId });
+  //const vote = await voteGet({ id: ctx.query.voteId });
   const {
     data: { records: replyList },
   } = await getReplyList({ bodyId: ctx.query.voteId });

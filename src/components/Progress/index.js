@@ -1,6 +1,6 @@
 import styles from "./style.module.less";
 import { Tooltip } from "antd";
-import { useState, useEffect } from "react";
+import { useState, useEffect ,useMemo} from "react";
 import { FlashNumber } from "../FlashNumber";
 import { options } from "less";
 
@@ -14,10 +14,14 @@ const Progress = ({
   isVote = false,
   voteClick,
   option,
+  type=false
 }) => {
-  const [type, setType] = useState(true);
+
   const onClick = () => {
-    setType(false);
+    if(type){
+      return
+    }
+    // setType(false);
     voteClick && voteClick(option);
   };
   return (
@@ -37,7 +41,7 @@ const Progress = ({
         </div>
         {isVote && (
           <div onClick={onClick} className={styles["progress-vote-botton"]}>
-            {type ? <p>+1</p> : <CheckMark></CheckMark>}
+            {!option.selected ? <p>+1</p> : <CheckMark></CheckMark>}
           </div>
         )}
       </div>

@@ -13,7 +13,45 @@
   cursor: pointer;
   display: inline-block;
   box-shadow: 0px 1px 10px 0 rgb(106 115 133 / 25%);
-  &:hover{
+  &:hover {
     color: #6d757a;
+  }
+}
+
+.emoji-popover {
+  div[class~="ant-popover-inner-content"] {
+    padding: 0;
+  }
+}
+
+.emoji-content {
+  width: 363px;
+  .emoji-content-container {
+    padding: 13px 15px 0 15px;
+    .emoji-content-title {
+      color: #757575;
+      line-height: 16px;
+    }
+    .emoji-content-imgs {
+      > a {
+        width: 32px;
+        height: 32px;
+        color: #111;
+        border-radius: 4px;
+        transition: background 0.2s;
+        display: inline-block;
+        outline: 0;
+        text-decoration: none;
+        cursor: pointer;
+        &:hover {
+          background-color: #ddd;
+        }
+      }
+    }
+  }
+  .emoji-content-menu {
+    height: 36px;
+    > div {
+    }
   }
 }

@@ -82,8 +82,8 @@ function Index(props) {
 }
 
 Index.getInitialProps = async (ctx) => {
-  const { records } = await voteList({ p: 1, s: 10 });
-  return { homeList:records };
+  const { data } = await voteList({ p: 1, s: 10 });
+  return { homeList:data.records };
 };
 
 export default WithAuth(Index);

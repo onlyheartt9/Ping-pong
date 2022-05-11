@@ -2,8 +2,9 @@ import React from "react";
 import styles from "./style.module.less";
 import { userLogin } from "@/server/user";
 import { SimpleForm } from "@/components";
-import { Input } from "antd";
-import Cookies from 'js-cookie'
+import { Input, Button } from "antd";
+import Cookies from "js-cookie";
+import Router from "next/router";
 
 const config = [
   {
@@ -33,14 +34,27 @@ const Login = () => {
     }
     const values = form.getFieldsValue();
     userLogin(values).then((res) => {
-      // console.log(res);
-      Cookies.set('user_token',res)
+      if (res?.success === false) {
+        return;
+      }
+      console.log(res);
+      Cookies.set("user_token", res);
+      Router.push(`/`);
     });
   };
   return (
-    <div>
-      <SimpleForm form={form} items={config} initialValues={{u:'422474821',p:'Qq5801988123qq'}}></SimpleForm>
-      <button onClick={submit}>submit</button>
+    <div className={styles["login"]}>
+      <SimpleForm
+        form={form}
+        items={config}
+        initialValues={{ u: "422474821", p: "Qq5801988123qq" }}
+      ></SimpleForm>
+      <div><a onClick={()=>{Router.push('/register')}}>前往注册</a></div>
+      <div className={styles["login-footer"]}>
+        <Button type="primary" ghost onClick={submit}>
+          冲鸭
+        </Button>
+      </div>
     </div>
   );
 };
