@@ -2,18 +2,27 @@ import "@/../styles/globals.css";
 import Head from "next/head";
 import Script from "next/script";
 import Layout from "@/components/Layout";
+import Cookies from "js-cookie";
+import { parseCookie } from "@/utils";
+import { cookie } from "@/utils/index";
 
 const cdns = [
   "https://unpkg.com/react@17.0.2/umd/react.production.min.js",
   "https://unpkg.com/react-dom@17.0.2/umd/react-dom.production.min.js",
-  'https://unpkg.com/moment@2.29.1/moment.js',
-  'https://unpkg.com/less@4.1.2/dist/less.js',
-  'https://unpkg.com/antd@4.18.4/dist/antd.min.js',
-  'https://unpkg.com/axios@0.26.0/dist/axios.min.js'
+  "https://unpkg.com/moment@2.29.1/moment.js",
+  "https://unpkg.com/less@4.1.2/dist/less.js",
+  "https://unpkg.com/antd@4.18.4/dist/antd.min.js",
+  "https://unpkg.com/axios@0.26.0/dist/axios.min.js",
 ];
 const links = ["https://unpkg.com/antd@4.18.4/dist/antd.min.css"];
 
 function MyApp({ Component, pageProps }) {
+  // cookie.current = Cookies.get()
+
+  const isServer = typeof window === "undefined";
+  if (!isServer) {
+    cookie.current = Cookies.get();
+  }
   return (
     <div>
       <Head>
@@ -37,5 +46,19 @@ function MyApp({ Component, pageProps }) {
     </div>
   );
 }
+
+
+
+MyApp.getInitialProps = async ({ Component, ctx }) => {
+  const isServer = typeof window === "undefined";
+  if (isServer) {
+    cookie.current = parseCookie(ctx.req.headers.cookie);
+  }
+  let pageProps = {};
+  if (Component.getInitialProps) {
+    pageProps = await Component.getInitialProps(ctx);
+  }
+  return { pageProps };
+};
 
 export default MyApp;

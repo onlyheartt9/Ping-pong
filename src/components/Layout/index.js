@@ -6,6 +6,8 @@ import styles from "./style.module.less";
 import Router from "next/router";
 import { useEffect, useState } from "react";
 import Cookies from "js-cookie";
+import { IconFont } from "../IconFont";
+import { hasLogin } from "@/utils";
 const { Header, Content, Footer } = Layout;
 
 function ProviderContainer({ ofs, children, pageProps, index = 0 }) {
@@ -22,12 +24,14 @@ function ProviderContainer({ ofs, children, pageProps, index = 0 }) {
   );
 }
 
-function HeaderContainer() {
+function useLogin() {
   const [isLogin, setLogin] = useState(false);
-  const userToken = Cookies.get("user_token");
-  useEffect(() => {
-    setLogin(!!userToken);
-  }, [userToken]);
+
+  return isLogin;
+}
+
+function HeaderContainer() {
+  const isLogin = hasLogin();
   const jumpToHome = () => {
     Router.push("/");
   };
@@ -43,7 +47,9 @@ function HeaderContainer() {
         乒乓Talk
       </div>
       <div className={styles["header-func"]}>
-        <Button onClick={jumpToVote}>创建投票</Button>
+        <div className={styles["create"]} onClick={jumpToVote}>
+          <IconFont type={"icon-fabujishu"}></IconFont>创建投票
+        </div>
         {isLogin ? (
           <UserAvatar src="https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png"></UserAvatar>
         ) : (

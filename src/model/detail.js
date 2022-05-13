@@ -5,16 +5,15 @@ export const DetailDataStore = (props) => {
   return useData({
     api: voteGet,
     initialParams: {},
-    initialData: props.vote,
+    initialData: props?.vote,
   });
 };
 
 export const ReplyListStore = (props) => {
-  // data.setData(props.vote)
   return useList({
     api: getReplyList,
     initialParams: {},
-    initialData: props.replyList,
+    initialData: props?.replyList ?? [],
   });
 };
 

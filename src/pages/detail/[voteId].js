@@ -15,7 +15,7 @@ function ReplysModule() {
   }, [list]);
   const submit = (value) => {
     replyAdd({ content: value, bodyId: vote.id }).then((res) => {
-      if (!res) {
+      if (!res.success) {
         return;
       }
       getList({ bodyId: vote.id });
@@ -36,8 +36,13 @@ function DetailInfo() {
   const type = useMemo(() => {
     return vote.options.some((opt) => opt.selected);
   }, [vote]);
+
+  // 投票选项点击方法
   const voteClick = (option) => {
-    voteOption({ voteOption: { id: option.id } }).then(() => {
+    voteOption({ voteOption: { id: option.id } }).then((res) => {
+      if (!res.success) {
+        return;
+      }
       getData({ id: vote.id });
     });
   };
@@ -145,4 +150,4 @@ VoteDetail.getInitialProps = async (ctx) => {
   } = await getReplyList({ bodyId: ctx.query.voteId });
   return { vote, replyList: replyList ?? [] };
 };
-export default WithAuth(VoteDetail);
+export default VoteDetail;

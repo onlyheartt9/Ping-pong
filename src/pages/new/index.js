@@ -1,4 +1,4 @@
-import React, { useCallback, useState } from "react";
+import React, { useCallback, useState, useEffect } from "react";
 import styles from "./style.module.less";
 import { voteUpsert, voteList } from "@/server/vote";
 import { checkOnlion } from "@/server/user";
@@ -6,6 +6,8 @@ import { SimpleForm } from "@/components";
 import { Input, Button, Form, Radio, Select, message } from "antd";
 import { InfoCircleOutlined } from "@ant-design/icons";
 import Router from "next/router";
+import { hasLogin } from "@/utils";
+import { NotLogin } from "@/utils/error";
 
 const New1 = () => {
   const add = () => {
@@ -203,13 +205,23 @@ const New = () => {
     }
     const values = form.getFieldsValue();
     voteUpsert(values).then((res) => {
-      console.log(res);
-      message.success('添加成功,3秒后跳转详情页');
-      setTimeout(()=>{
+      if (!res?.success) {
+        return;
+      }
+      message.success("添加成功,3秒后跳转详情页");
+      setTimeout(() => {
         Router.push(`/detail/${res.data}`);
-      },3000);
+      }, 3000);
     });
   };
+
+  useEffect(() => {
+    const isLogin = hasLogin();
+    if (!isLogin) {
+      NotLogin();
+    }
+  }, []);
+
   return (
     <div className={styles["new"]}>
       <Form

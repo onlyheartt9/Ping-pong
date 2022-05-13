@@ -1,8 +1,12 @@
 import axios from "axios";
 import { message } from "antd";
 import qs from "qs";
-import { parseCookie } from "./index";
+import { cookie } from "./index";
 import { proxyUrl } from "@/../proxy";
+
+import { AxiosError } from "./error";
+
+
 
 const isServer = typeof window === "undefined";
 const baseURL = isServer ? proxyUrl : "/";
@@ -28,7 +32,7 @@ service.interceptors.request.use(
       config.headers["Content-Type"] = "application/x-www-form-urlencoded";
     }
     // 让每个请求携带自定义token
-    const cookies = parseCookie(isServer ? service.cookie : document?.cookie);
+    const cookies = cookie.current;
     if (cookies["user_token"]) {
       // header添加token
       config.headers["user_token"] = cookies["user_token"];
@@ -42,12 +46,13 @@ service.interceptors.request.use(
 // respone 响应拦截器
 service.interceptors.response.use(
   (response) => {
+    const { data } = response;
     console.log(response.data, 2222);
     // 接口值报错，且不在服务端
-    if (response.data.success === false && !isServer) {
-      message.error(response.data.msg);
+    if (data.success === false && !isServer) {
+      new AxiosError(data);
     }
-    return response.data;
+    return data;
   },
   (error) => {
     if (isServer) {

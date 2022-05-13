@@ -9,7 +9,7 @@ export const VoteListStore = (props) => {
       s: 10,
       p: 1,
     },
-    initialData: props.homeList,
+    initialData: props?.homeList,
   });
 };
 

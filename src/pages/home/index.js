@@ -1,7 +1,7 @@
 import React, { useContext, useEffect, useState } from "react";
 import { VoteListStore } from "@/model";
 import { useStore } from "reto";
-import { UserAvatar, Vote, Panel, WithAuth } from "@/components";
+import { UserAvatar, Vote, Panel, WithAuth, IconFont } from "@/components";
 import { Button, Divider } from "antd";
 import styles from "./style.module.less";
 import Router from "next/router";
@@ -11,8 +11,6 @@ import { timeCompute } from "@/utils";
 
 function VoteItem({ item }) {
   const onClick = () => {
-    window.rrr = Router;
-    console.log(Router,6666)
     Router.push(`/detail/${item.id}`);
   };
   return (
@@ -34,20 +32,20 @@ function VoteItem({ item }) {
         </div>
       </div>
       <div className={styles["vote-item-title"]}>{item.content}</div>
-      {/* <div className={styles["vote-item-content"]}>
-        contentcontentcontentcontentcontentcontentcontentcontentcontentcontentcontentcontentcontentcontentcontentcontentcontentcontentcontentcontent
-      </div> */}
       <Vote width={"47%"} options={item.options}></Vote>
       <div className={styles["vote-item-footer"]}>
-        <div className={styles["vote-item-replys"]}>12</div>
-        <div className={styles["vote-item-stars"]}>3577</div>
+        <div className={styles["vote-item-replys"]}>
+          <IconFont type={"icon-pinglun"}></IconFont>12
+        </div>
+        <div className={styles["vote-item-stars"]}>
+          <IconFont type={"icon-dianzan"}></IconFont>3577
+        </div>
       </div>
     </div>
   );
 }
 
 function VoteList({ list }) {
-  const arr = [1, 2, 3];
   // const [list, setList] = useState([]);
   // useEffect(() => {
   //   voteList({ p: 1, s: 10 }).then(({ records }) => {
@@ -67,10 +65,8 @@ function VoteList({ list }) {
   );
 }
 
-function Index(props) {
-  //const [data] = useState(props.stars)
+function Index() {
   const { list } = useStore(VoteListStore);
-
   return (
     <div className={styles["home"]}>
       <Panel></Panel>
@@ -83,7 +79,7 @@ function Index(props) {
 
 Index.getInitialProps = async (ctx) => {
   const { data } = await voteList({ p: 1, s: 10 });
-  return { homeList:data.records };
+  return { homeList: data.records ?? [] };
 };
 
-export default WithAuth(Index);
+export default Index;

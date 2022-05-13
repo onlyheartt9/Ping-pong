@@ -58,12 +58,12 @@ export function useList({ api, initialParams, initialData }) {
       const { size, current, records } = res.data;
       setHasMore(size * current < res.total);
       setTotal(res.total);
-      setList(!add ? records : [...list, ...records]);
+      setList(!add ? records ?? [] : [...list, ...records]);
     });
   }, [params, add, key]);
   return {
     getList,
-    list: list.length === 0 ? initialData : list,
+    list: list?.length === 0 ? initialData : list,
     hasMore,
     total,
     params,

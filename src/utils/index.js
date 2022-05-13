@@ -1,4 +1,10 @@
 import moment from "moment";
+// import Cookies from "js-cookie";
+
+export const cookie = {
+  current: null,
+};
+
 export const timeCompute = (timeStr) => {
   const minute = 1000 * 60;
   const hour = minute * 60;
@@ -21,7 +27,7 @@ export const timeCompute = (timeStr) => {
   return result;
 };
 
-export const parseCookie = (cookieStr="") => {
+export const parseCookie = (cookieStr = "") => {
   const cookies = cookieStr.split(";");
   const map = {};
   cookies.forEach((cookie) => {
@@ -64,12 +70,12 @@ export const getGradualNum = (num, setNum) => {
   }, 10);
 };
 
-export const requireComponent = (r, { excludes = [], callback = (e) => e }) => {
-  // 获取所有需要export的组件
-  // const r = require.context("./", true, /.index.js$/);
+export const hasLogin = () => {
+  return cookie.current['user_token'];
+};
 
+export const requireComponent = (r, { excludes = [], callback = (e) => e }) => {
   let components = {};
-  // const excludes = ["./index.js", "./Layout/index.js"];
   r.keys().forEach((key) => {
     if (excludes.includes(key)) {
       return;
@@ -77,7 +83,7 @@ export const requireComponent = (r, { excludes = [], callback = (e) => e }) => {
     const cmp = r(key);
     components = { ...components, ...cmp };
   });
-
+  
   // 组件添加memo
   Object.keys(components).forEach((key) => {
     const cmp = callback(components[key], key, components);

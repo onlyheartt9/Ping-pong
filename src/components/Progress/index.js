@@ -1,11 +1,16 @@
 import styles from "./style.module.less";
 import { Tooltip } from "antd";
-import { useState, useEffect ,useMemo} from "react";
+import { useState, useEffect, useMemo } from "react";
 import { FlashNumber } from "../FlashNumber";
+import IconFont from "../IconFont";
 import { options } from "less";
 
 const CheckMark = () => {
-  return <div></div>;
+  return (
+    <div>
+      <IconFont type={"icon-pinglun"}></IconFont>
+    </div>
+  );
 };
 
 const Progress = ({
@@ -14,14 +19,12 @@ const Progress = ({
   isVote = false,
   voteClick,
   option,
-  type=false
+  type = false,
 }) => {
-
   const onClick = () => {
-    if(type){
-      return
+    if (type) {
+      return;
     }
-    // setType(false);
     voteClick && voteClick(option);
   };
   return (
@@ -34,7 +37,7 @@ const Progress = ({
       <div className={styles["progress-percent"]} style={{ width: percent }}>
         <div></div>
       </div>
-      <div className={styles["progress-option"]}>猜猜我是谁</div>
+      <div className={styles["progress-option"]}>{option.content}</div>
       <div className={styles["progress-right"]}>
         <div className={styles["progress-nums"]}>
           <FlashNumber>{option.totalSelected}</FlashNumber>票

@@ -9,7 +9,7 @@ function WithAuth(Page) {
       if (isServer) {
         axios.cookie = ctx.req.headers.cookie;
       }
-      
+
       const options = await getInitialProps(ctx, ...e);
 
       if (isServer) {
